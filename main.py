@@ -28,15 +28,12 @@ region_mapping = {
     "tuscaloosa": 20, "anchorage / mat-su": 21
 }
 
-
 fuel_mapping = {
-    "Gas": 0, "Diesel": 1, "Electric": 2, "Hybrid": 3, "Others": 4,
-    # Add more fuel types as needed
+    "Gasoline": 0, "Diesel": 1, "Electric": 2, "Hybrid": 3
 }
 
 condition_mapping = {
-    "New": 0, "Like New": 1, "Used": 2, "Fair": 3, "Salvage": 4,
-    # Add more conditions as needed
+    "New": 0, "Like New": 1, "Used": 2, "Fair": 3, "Salvage": 4
 }
 
 # User input for prediction
@@ -60,6 +57,7 @@ state = st.sidebar.number_input("State (encoded)", min_value=0, value=0)
 posting_date = st.sidebar.number_input("Posting Date (encoded)", min_value=0, value=0)
 
 # Convert human-readable inputs to encoded values
+encoded_region = region_mapping[region]
 encoded_manufacturer = manufacturer_mapping[manufacturer]
 encoded_condition = condition_mapping[condition]
 encoded_fuel = fuel_mapping[fuel]
@@ -68,7 +66,7 @@ encoded_fuel = fuel_mapping[fuel]
 current_year = datetime.datetime.now().year
 
 # Create a DataFrame for the input features
-input_data = pd.DataFrame([[region, year, encoded_manufacturer, model_input, encoded_condition, cylinders, 
+input_data = pd.DataFrame([[encoded_region, year, encoded_manufacturer, model_input, encoded_condition, cylinders, 
                              encoded_fuel, odometer, title_status, transmission, drive, size, 
                              type_input, paint_color, state, posting_date]], 
                           columns=['region', 'year', 'manufacturer', 'model', 'condition', 'cylinders', 
