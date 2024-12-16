@@ -9,8 +9,14 @@ model.load_model('your_model.json')  # Ensure the model path is correct
 
 # Define mapping dictionaries for categorical features
 manufacturer_mapping = {
-    "Toyota": 0, "Honda": 1, "Ford": 2, "Chevrolet": 3, "Nissan": 4,
-    # Add more manufacturers as needed
+    "gmc": 0, "chevrolet": 1, "toyota": 2, "ford": 3, "jeep": 4,
+    "nissan": 5, "ram": 6, "mazda": 7, "cadillac": 8, "honda": 9,
+    "dodge": 10, "lexus": 11, "jaguar": 12, "buick": 13, "chrysler": 14,
+    "volvo": 15, "audi": 16, "infiniti": 17, "lincoln": 18, "alfa-romeo": 19,
+    "subaru": 20, "acura": 21, "hyundai": 22, "mercedes-benz": 23,
+    "bmw": 24, "mitsubishi": 25, "volkswagen": 26, "porsche": 27,
+    "kia": 28, "rover": 29, "ferrari": 30, "mini": 31, "pontiac": 32,
+    "fiat": 33, "tesla": 34, "saturn": 35, "mercury": 36, "harley-davidson": 37
 }
 
 fuel_mapping = {
