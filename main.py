@@ -4,7 +4,8 @@ import pandas as pd
 # Load the trained model
 model = xgb.Booster()
 model.load_model('your_model.json')  # Make sure the path is correct
-
+# Print the feature names
+print("Model feature names:", model.feature_names)
 # User input for prediction
 st.title("XGBoost Prediction Dashboard")
 
@@ -40,7 +41,7 @@ if st.button("Predict"):
     dmatrix = xgb.DMatrix(input_data)
 
     # Make prediction
-    prediction = model.predict(dmatrix)
+    prediction = model.predict(price)
     
     # Display the prediction result
     st.write(f"*Predicted Price:* ${prediction[0]:,.2f}")
