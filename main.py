@@ -44,6 +44,12 @@ transmission_mapping = {
     "other": 0, "automatic": 1, "manual": 2
 }
 
+drive_mapping = {
+    "rwd": 0,  # Rear-wheel drive
+    "4wd": 1,  # Four-wheel drive
+    "fwd": 2   # Front-wheel drive
+}
+
 # User input for prediction
 st.title("Vehicle Price Prediction Dashboard")
 st.sidebar.header("Input Features")
@@ -58,7 +64,7 @@ fuel = st.sidebar.selectbox("Fuel Type", options=list(fuel_mapping.keys()))
 odometer = st.sidebar.number_input("Odometer Reading (in miles)", min_value=0, value=50000)
 title_status = st.sidebar.selectbox("Title Status", options=list(title_status_mapping.keys()))
 transmission = st.sidebar.selectbox("Transmission", options=list(transmission_mapping.keys()))
-drive = st.sidebar.number_input("Drive (encoded)", min_value=0, value=0)
+drive = st.sidebar.selectbox("Drive", options=list(drive_mapping.keys()))
 size = st.sidebar.number_input("Size (encoded)", min_value=0, value=0)
 type_input = st.sidebar.number_input("Type (encoded)", min_value=0, value=0)
 paint_color = st.sidebar.number_input("Paint Color (encoded)", min_value=0, value=0)
@@ -72,13 +78,14 @@ encoded_condition = condition_mapping[condition]
 encoded_fuel = fuel_mapping[fuel]
 encoded_title_status = title_status_mapping[title_status]
 encoded_transmission = transmission_mapping[transmission]
+encoded_drive = drive_mapping[drive]
 
 # Current year for calculating car_age
 current_year = datetime.datetime.now().year
 
 # Create a DataFrame for the input features
 input_data = pd.DataFrame([[encoded_region, year, encoded_manufacturer, model_input, encoded_condition, cylinders, 
-                             encoded_fuel, odometer, encoded_title_status, encoded_transmission, drive, size, 
+                             encoded_fuel, odometer, encoded_title_status, encoded_transmission, encoded_drive, size, 
                              type_input, paint_color, state, posting_date]], 
                           columns=['region', 'year', 'manufacturer', 'model', 'condition', 'cylinders', 
                                    'fuel', 'odometer', 'title_status', 'transmission', 'drive', 
@@ -98,7 +105,7 @@ if st.button("Predict"):
 
 # Optional sections for model explanation and additional resources
 st.sidebar.header("Model Explanation")
-st.sidebar.write("This model predicts the selling price of a vehicle based on various features such as year, manufacturer, condition, fuel type, odometer reading, title status, and transmission.")
+st.sidebar.write("This model predicts the selling price of a vehicle based on various features such as year, manufacturer, condition, fuel type, odometer reading, title status, drive, and transmission.")
 
 st.sidebar.header("Additional Resources")
 st.sidebar.write("For more information about the model and its features, please refer to the documentation or contact support.")
