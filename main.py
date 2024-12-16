@@ -42,7 +42,7 @@ condition_mapping = {
 # User input for prediction
 st.title("Vehicle Price Prediction Dashboard")
 st.sidebar.header("Input Features")
-region = st.sidebar.number_input("Region", min_value=0, value=0)
+region = st.sidebar.selectbox("Region", options=list(region_mapping.keys()))
 year = st.sidebar.number_input("Year of Vehicle", min_value=1900, max_value=2024, value=2020)
 manufacturer = st.sidebar.selectbox("Manufacturer", options=list(manufacturer_mapping.keys()))
 model_input = st.sidebar.number_input("Model (encoded)", min_value=0, value=0)  # Assuming model is still encoded
