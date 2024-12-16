@@ -45,16 +45,27 @@ transmission_mapping = {
 }
 
 drive_mapping = {
-    "rwd": 0,  # Rear-wheel drive
-    "4wd": 1,  # Four-wheel drive
-    "fwd": 2   # Front-wheel drive
+    "rwd": 0, "4wd": 1, "fwd": 2
 }
 
 size_mapping = {
-    "full-size": 0,
-    "mid-size": 1,
-    "compact": 2,
-    "sub-compact": 3
+    "full-size": 0, "mid-size": 1, "compact": 2, "sub-compact": 3
+}
+
+type_mapping = {
+    "pickup": 0, "truck": 1, "other": 2, "coupe": 3, "SUV": 4,
+    "hatchback": 5, "mini-van": 6, "sedan": 7, "offroad": 8,
+    "bus": 9, "van": 10, "convertible": 11, "wagon": 12
+}
+
+paint_color_mapping = {
+    "white": 0, "blue": 1, "red": 2, "black": 3, "silver": 4, "grey": 5,
+    "brown": 6, "yellow": 7, "orange": 8, "green": 9, "custom": 10, "purple": 11
+}
+
+state_mapping = {
+    "az": 0, "ar": 1, "fl": 2, "ma": 3, "nc": 4, "ny": 5,
+    "or": 6, "pa": 7, "tx": 8, "wa": 9, "wi": 10, "al": 11, "ak": 12
 }
 
 # User input for prediction
@@ -73,10 +84,9 @@ title_status = st.sidebar.selectbox("Title Status", options=list(title_status_ma
 transmission = st.sidebar.selectbox("Transmission", options=list(transmission_mapping.keys()))
 drive = st.sidebar.selectbox("Drive", options=list(drive_mapping.keys()))
 size = st.sidebar.selectbox("Size", options=list(size_mapping.keys()))
-type_input = st.sidebar.number_input("Type (encoded)", min_value=0, value=0)
-paint_color = st.sidebar.number_input("Paint Color (encoded)", min_value=0, value=0)
-state = st.sidebar.number_input("State (encoded)", min_value=0, value=0)
-posting_date = st.sidebar.number_input("Posting Date (encoded)", min_value=0, value=0)
+type_input = st.sidebar.selectbox("Type", options=list(type_mapping.keys()))
+paint_color = st.sidebar.selectbox("Paint Color", options=list(paint_color_mapping.keys()))
+state = st.sidebar.selectbox("State", options=list(state_mapping.keys()))
 
 # Convert human-readable inputs to encoded values
 encoded_region = region_mapping[region]
@@ -87,6 +97,9 @@ encoded_title_status = title_status_mapping[title_status]
 encoded_transmission = transmission_mapping[transmission]
 encoded_drive = drive_mapping[drive]
 encoded_size = size_mapping[size]
+encoded_type = type_mapping[type_input]
+encoded_paint_color = paint_color_mapping[paint_color]
+encoded_state = state_mapping[state]
 
 # Current year for calculating car_age
 current_year = datetime.datetime.now().year
@@ -94,10 +107,10 @@ current_year = datetime.datetime.now().year
 # Create a DataFrame for the input features
 input_data = pd.DataFrame([[encoded_region, year, encoded_manufacturer, model_input, encoded_condition, cylinders, 
                              encoded_fuel, odometer, encoded_title_status, encoded_transmission, encoded_drive, 
-                             encoded_size, type_input, paint_color, state, posting_date]], 
+                             encoded_size, encoded_type, encoded_paint_color, encoded_state]], 
                           columns=['region', 'year', 'manufacturer', 'model', 'condition', 'cylinders', 
                                    'fuel', 'odometer', 'title_status', 'transmission', 'drive', 
-                                   'size', 'type', 'paint_color', 'state', 'posting_date'])
+                                   'size', 'type', 'paint_color', 'state'])
 
 # Calculate car_age and add to the DataFrame
 input_data['car_age'] = current_year - input_data['year']
@@ -113,7 +126,7 @@ if st.button("Predict"):
 
 # Optional sections for model explanation and additional resources
 st.sidebar.header("Model Explanation")
-st.sidebar.write("This model predicts the selling price of a vehicle based on various features such as year, manufacturer, condition, fuel type, odometer reading, size, title status, drive, and transmission.")
+st.sidebar.write("This model predicts the selling price of a vehicle based on features like year, manufacturer, fuel type, condition, title status, transmission, drive, size, type, paint color, and state.")
 
 st.sidebar.header("Additional Resources")
 st.sidebar.write("For more information about the model and its features, please refer to the documentation or contact support.")
