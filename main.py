@@ -41,7 +41,7 @@ if st.button("Predict"):
     dmatrix = xgb.DMatrix(input_data)
 
     # Make prediction
-    prediction = model.predict(price)
+    prediction = model.predict(dmatrix)
     
     # Display the prediction result
     st.write(f"*Predicted Price:* ${prediction[0]:,.2f}")
