@@ -19,6 +19,16 @@ manufacturer_mapping = {
     "fiat": 33, "tesla": 34, "saturn": 35, "mercury": 36, "harley-davidson": 37
 }
 
+region_mapping = {
+    "prescott": 0, "fayetteville": 1, "florida keys": 2, "worcester / central MA": 3,
+    "greensboro": 4, "hudson valley": 5, "medford-ashland": 6, "erie": 7,
+    "el paso": 8, "bellingham": 9, "skagit / island / SJI": 10, "la crosse": 11,
+    "auburn": 12, "birmingham": 13, "dothan": 14, "florence / muscle shoals": 15,
+    "gadsden-anniston": 16, "huntsville / decatur": 17, "mobile": 18, "montgomery": 19,
+    "tuscaloosa": 20, "anchorage / mat-su": 21
+}
+
+
 fuel_mapping = {
     "Gas": 0, "Diesel": 1, "Electric": 2, "Hybrid": 3, "Others": 4,
     # Add more fuel types as needed
