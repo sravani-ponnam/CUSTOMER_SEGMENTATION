@@ -34,6 +34,7 @@ condition = st.sidebar.selectbox("Condition", options=list(condition_mapping.key
 cylinders = st.sidebar.number_input("Cylinders", min_value=0, value=4)
 fuel = st.sidebar.selectbox("Fuel Type", options=list(fuel_mapping.keys()))
 odometer = st.sidebar.number_input("Odometer Reading (in miles)", min_value=0, value=50000)
+title_status = st.sidebar.number_input("Title Status (encoded)", min_value=0, value=0)
 transmission = st.sidebar.number_input("Transmission (encoded)", min_value=0, value=0)
 drive = st.sidebar.number_input("Drive (encoded)", min_value=0, value=0)
 size = st.sidebar.number_input("Size (encoded)", min_value=0, value=0)
@@ -52,10 +53,10 @@ current_year = datetime.datetime.now().year
 
 # Create a DataFrame for the input features
 input_data = pd.DataFrame([[region, year, encoded_manufacturer, model_input, encoded_condition, cylinders, 
-                             encoded_fuel, odometer, transmission, drive, size, 
+                             encoded_fuel, odometer, title_status, transmission, drive, size, 
                              type_input, paint_color, state, posting_date]], 
                           columns=['region', 'year', 'manufacturer', 'model', 'condition', 'cylinders', 
-                                   'fuel', 'odometer', 'transmission', 'drive', 
+                                   'fuel', 'odometer', 'title_status', 'transmission', 'drive', 
                                    'size', 'type', 'paint_color', 'state', 'posting_date'])
 
 # Calculate car_age and add to the DataFrame
