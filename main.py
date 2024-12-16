@@ -36,6 +36,10 @@ condition_mapping = {
     "New": 0, "Like New": 1, "Used": 2, "Fair": 3, "Salvage": 4
 }
 
+title_status_mapping = {
+    "clean": 0, "rebuilt": 1, "lien": 2, "salvage": 3, "missing": 4, "parts only": 5
+}
+
 # User input for prediction
 st.title("Vehicle Price Prediction Dashboard")
 st.sidebar.header("Input Features")
@@ -47,7 +51,7 @@ condition = st.sidebar.selectbox("Condition", options=list(condition_mapping.key
 cylinders = st.sidebar.number_input("Cylinders", min_value=0, value=4)
 fuel = st.sidebar.selectbox("Fuel Type", options=list(fuel_mapping.keys()))
 odometer = st.sidebar.number_input("Odometer Reading (in miles)", min_value=0, value=50000)
-title_status = st.sidebar.number_input("Title Status (encoded)", min_value=0, value=0)
+title_status = st.sidebar.selectbox("Title Status", options=list(title_status_mapping.keys()))
 transmission = st.sidebar.number_input("Transmission (encoded)", min_value=0, value=0)
 drive = st.sidebar.number_input("Drive (encoded)", min_value=0, value=0)
 size = st.sidebar.number_input("Size (encoded)", min_value=0, value=0)
@@ -61,13 +65,14 @@ encoded_region = region_mapping[region]
 encoded_manufacturer = manufacturer_mapping[manufacturer]
 encoded_condition = condition_mapping[condition]
 encoded_fuel = fuel_mapping[fuel]
+encoded_title_status = title_status_mapping[title_status]
 
 # Current year for calculating car_age
 current_year = datetime.datetime.now().year
 
 # Create a DataFrame for the input features
 input_data = pd.DataFrame([[encoded_region, year, encoded_manufacturer, model_input, encoded_condition, cylinders, 
-                             encoded_fuel, odometer, title_status, transmission, drive, size, 
+                             encoded_fuel, odometer, encoded_title_status, transmission, drive, size, 
                              type_input, paint_color, state, posting_date]], 
                           columns=['region', 'year', 'manufacturer', 'model', 'condition', 'cylinders', 
                                    'fuel', 'odometer', 'title_status', 'transmission', 'drive', 
