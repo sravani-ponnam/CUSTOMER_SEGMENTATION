@@ -132,4 +132,4 @@ st.sidebar.write("This model predicts the selling price of a vehicle based on fe
 st.sidebar.header("Additional Resources")
 st.sidebar.write("For more information about the model and its features, please refer to the documentation or contact support.")
 
-st.sidebar.write("Developed by [Your Name] - [Your Contact Information]")
+st.sidebar.write("Developed by MANEESHA PALEM, SRAVANI PONNAM, CHANDU KATIPALLY")
