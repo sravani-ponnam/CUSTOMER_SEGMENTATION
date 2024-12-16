@@ -87,6 +87,7 @@ size = st.sidebar.selectbox("Size", options=list(size_mapping.keys()))
 type_input = st.sidebar.selectbox("Type", options=list(type_mapping.keys()))
 paint_color = st.sidebar.selectbox("Paint Color", options=list(paint_color_mapping.keys()))
 state = st.sidebar.selectbox("State", options=list(state_mapping.keys()))
+posting_date = st.sidebar.number_input("Posting Date (encoded)", min_value=0, value=0)
 
 # Convert human-readable inputs to encoded values
 encoded_region = region_mapping[region]
@@ -107,10 +108,10 @@ current_year = datetime.datetime.now().year
 # Create a DataFrame for the input features
 input_data = pd.DataFrame([[encoded_region, year, encoded_manufacturer, model_input, encoded_condition, cylinders, 
                              encoded_fuel, odometer, encoded_title_status, encoded_transmission, encoded_drive, 
-                             encoded_size, encoded_type, encoded_paint_color, encoded_state]], 
+                             encoded_size, encoded_type, encoded_paint_color, encoded_state, posting_date]], 
                           columns=['region', 'year', 'manufacturer', 'model', 'condition', 'cylinders', 
                                    'fuel', 'odometer', 'title_status', 'transmission', 'drive', 
-                                   'size', 'type', 'paint_color', 'state'])
+                                   'size', 'type', 'paint_color', 'state', 'posting_date'])
 
 # Calculate car_age and add to the DataFrame
 input_data['car_age'] = current_year - input_data['year']
@@ -126,7 +127,7 @@ if st.button("Predict"):
 
 # Optional sections for model explanation and additional resources
 st.sidebar.header("Model Explanation")
-st.sidebar.write("This model predicts the selling price of a vehicle based on features like year, manufacturer, fuel type, condition, title status, transmission, drive, size, type, paint color, and state.")
+st.sidebar.write("This model predicts the selling price of a vehicle based on features like year, manufacturer, fuel type, condition, title status, transmission, drive, size, type, paint color, state, and posting date.")
 
 st.sidebar.header("Additional Resources")
 st.sidebar.write("For more information about the model and its features, please refer to the documentation or contact support.")
