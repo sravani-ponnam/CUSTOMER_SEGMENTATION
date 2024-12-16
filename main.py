@@ -14,7 +14,7 @@ manufacturer_mapping = {
 }
 
 fuel_mapping = {
-    "Gasoline": 0, "Diesel": 1, "Electric": 2,
+    "Gas": 0, "Diesel": 1, "Electric": 2, "Hybrid": 3, "Others": 4,
     # Add more fuel types as needed
 }
 
