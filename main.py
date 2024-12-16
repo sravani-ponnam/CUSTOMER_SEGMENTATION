@@ -1,6 +1,7 @@
 import streamlit as st
 import xgboost as xgb
 import pandas as pd
+import datetime
 
 # Load the trained model
 model = xgb.Booster()
@@ -47,6 +48,9 @@ encoded_manufacturer = manufacturer_mapping[manufacturer]
 encoded_condition = condition_mapping[condition]
 encoded_fuel = fuel_mapping[fuel]
 
+# Current year for calculating car_age
+current_year = datetime.datetime.now().year
+
 # Create a DataFrame for the input features
 input_data = pd.DataFrame([[region, year, encoded_manufacturer, model_input, encoded_condition, cylinders, 
                              encoded_fuel, odometer, title_status, transmission, drive, size, 
@@ -54,6 +58,9 @@ input_data = pd.DataFrame([[region, year, encoded_manufacturer, model_input, enc
                           columns=['region', 'year', 'manufacturer', 'model', 'condition', 'cylinders', 
                                    'fuel', 'odometer', 'title_status', 'transmission', 'drive', 
                                    'size', 'type', 'paint_color', 'state', 'posting_date'])
+
+# Calculate car_age and add to the DataFrame
+input_data['car_age'] = current_year - input_data['year']
 
 # Make prediction when the button is pressed
 if st.button("Predict"):
